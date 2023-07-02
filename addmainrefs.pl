@@ -108,6 +108,7 @@ for my $oplline (@opledfile_in) {
 			say STDERR "Hash lookup :$oplineno{$subentry}" if $debug;
 			my $subrec = $opledfile_in[$oplineno{$subentry}];
 			say STDERR "Found subentry entry:$subrec" if $debug;
+			next if $subrec =~ m/\\$mainrefmark $lexeme$eolrep/;
 			$subrec =~ s/^(\\$recmark [^$eolrep]+($eolrep)+(\\$hmmark [^$eolrep]+($eolrep)+)*)/$1\\$mainrefmark $lexeme$eolrep/;
 			$opledfile_in[$oplineno{$subentry}] = $subrec;
 			}
