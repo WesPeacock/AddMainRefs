@@ -3,8 +3,11 @@ my $USAGE = "Usage: $0 [--inifile inifile.ini] [--section section] [--recmark lx
 =pod
 This script finds all complex forms in an SFM file and adds main reference markers to their entries.
 
-The ini file should have a section like this:
+The ini file should have an AddMainRefs section.
+The recmark is optional here. It overrides the command line option.
+Here is a sample:
 [AddMainRefs]
+recmark=lx
 semarks=se,sec,sei
 mainrefmark=mn
 
@@ -43,23 +46,23 @@ say STDERR "eolrep:$eolrep" if $debug;
 say STDERR "reptag:$reptag" if $debug;
 
 # check your options and assign their information to variables here
-$recmark =~ s/[\\ ]//g; # no backslashes or spaces in record marker
-say STDERR "recmark:$recmark" if $debug;
 
 # if you have set the $inifilename & $inisection in the options, you only need to set the parameter variables according to the parameter names
 # =pod
 use Config::Tiny;
 my $config = Config::Tiny->read($inifilename, 'crlf');
 die "Quitting: couldn't find the INI file $inifilename\n$USAGE\n" if !$config;
+
+$recmark = $config->{"$inisection"}->{recmark} if $config->{"$inisection"}->{recmark};
+
 my $semarks = $config->{"$inisection"}->{semarks};
-say STDERR "semarks after cleanup:$semarks" if $debug;
-for ($semarks) {
+for ($recmark, $semarks) {
 	# remove backslashes and spaces from the SFMs in the INI file
 	say STDERR $_ if $debug;
-	$semarks =~ s/\\//g;
-	$semarks =~ s/ //g;
-	$semarks =~ s/\,*$//; # no trailing commas
-	$semarks =~ s/\,/\|/g;  # use bars for or'ing
+	s/\\//g;
+	s/ //g;
+	s/\,*$//; # no trailing commas
+	s/\,/\|/g;  # use bars for or'ing
 	}
 my $srchsemarks = qr/$semarks/;
 say STDERR "semarks RE: $semarks" if $debug;
