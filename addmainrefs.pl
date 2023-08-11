@@ -10,6 +10,7 @@ Here is a sample:
 recmark=lx
 semarks=se,sec,sei
 mainrefmark=mn
+homographmark=hm
 
 =cut
 use 5.020;
