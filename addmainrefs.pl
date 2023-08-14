@@ -1,5 +1,5 @@
 #!/usr/bin/env perl
-my $USAGE = "Usage: $0 [--inifile inifile.ini] [--section section] [--recmark lx] [--eolrep #] [--reptag __hash__] [--debug] [file.sfm]\n";
+my $USAGE = "Usage: $0 [--inifile inifile.ini] [--section AddMainRefs] [--recmark lx] [--eolrep #] [--reptag __hash__] [--debug] [file.sfm]\n";
 =pod
 This script finds all complex forms in an SFM file and adds main reference markers to their entries.
 
