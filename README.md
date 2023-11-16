@@ -1,5 +1,5 @@
 # AddMainRefs
-This repo has an opl/de_opl script to find all complex forms in an SFM file and add missing *\\mn* references to their entries.
+This repo has a script to find all complex forms in an SFM file and add missing *\\mn* references to their entries.
 
 ## Why run this script
 When an sub-entry has its own entry, the FLEx import process needs a pointer (by default a *\\mn* marked field) to the main entry that the sub-entry is under. The *addmainrefs.pl* script looks for all sub-entries under main entries. For each one, if the sub-entry has its own entry, the script will add a pointer field to that entry.
